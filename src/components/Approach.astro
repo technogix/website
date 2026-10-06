@@ -1,0 +1,77 @@
+---
+import { Image } from 'astro:assets';
+import { site } from '../data/site';
+import bookLaptop from '../assets/book-laptop.jpg';
+import { getContent } from '../i18n';
+
+const { approach } = getContent(Astro.currentLocale);
+---
+<section class="section" id="approach" aria-labelledby="approach-title">
+  <div class="container">
+    <div class="approach__head">
+      <div>
+        <p class="eyebrow">{approach.eyebrow}</p>
+        <h2 id="approach-title">{approach.title}</h2>
+      </div>
+      <div class="approach__intro">
+        {approach.intro.map((p) => <p>{p}</p>)}
+      </div>
+    </div>
+
+    <figure class="approach__visual">
+      <Image src={bookLaptop} alt="" widths={[480, 768, 1152, 1536]} sizes="(min-width: 42rem) 38rem, 100vw" />
+    </figure>
+
+    <ol class="guardrails">
+      {approach.guardrails.map((g) => (
+        <li><h3>{g.title}</h3><p>{g.text}</p></li>
+      ))}
+    </ol>
+
+    <div class="proof">
+      <p>{approach.proof.text}</p>
+      <p class="proof__links">
+        <a href={site.awsModules} rel="noopener">{approach.proof.links.aws} <span aria-hidden="true">→</span></a>
+        <a href={site.infraRepo} rel="noopener">{approach.proof.links.infra} <span aria-hidden="true">→</span></a>
+      </p>
+    </div>
+
+    <div class="method">
+      <h3 class="block-title">{approach.methodTitle}</h3>
+      <ol class="steps">
+        {approach.steps.map((s, i) => (
+          <li><span class="steps__num">{i + 1}</span><strong>{s.title}</strong><span>{s.text}</span></li>
+        ))}
+      </ol>
+    </div>
+
+  </div>
+</section>
+
+<style>
+  .approach__head { display: grid; gap: 1.5rem 4rem; margin-bottom: 3.5rem; }
+  @media (min-width: 60rem) { .approach__head { grid-template-columns: 1fr 1fr; align-items: end; } }
+  .approach__intro { display: grid; gap: 1rem; color: var(--ink-2); }
+  .approach__visual { max-width: 38rem; margin: 0 auto 3.5rem; }
+  .approach__visual :global(img) { width: 100%; height: auto; }
+
+  .guardrails { list-style: none; padding: 0; margin: 0; display: grid; border-top: 1px solid var(--line); border-left: 1px solid var(--line); }
+  @media (min-width: 40rem) { .guardrails { grid-template-columns: repeat(2, 1fr); } }
+  @media (min-width: 60rem) { .guardrails { grid-template-columns: repeat(3, 1fr); } }
+  .guardrails li { padding: 1.75rem; border-right: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+  .guardrails h3 { font-family: var(--font-body); font-size: 1.0625rem; margin-bottom: 0.5rem; }
+  .guardrails p { color: var(--ink-2); font-size: 0.9688rem; }
+
+  .proof { margin-top: 1.5rem; padding: 1rem 1.25rem; background: var(--brand-soft); border-left: 3px solid var(--brand); border-radius: 0 var(--radius) var(--radius) 0; font-size: 0.9688rem; }
+  .proof__links { display: flex; flex-wrap: wrap; gap: 0.5rem 1.5rem; margin-top: 0.5rem; }
+  .proof__links a { font-weight: 500; text-decoration: none; }
+
+  .method { margin-top: 4rem; }
+  .block-title { font-family: var(--font-body); font-size: 0.8125rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); margin-bottom: 1.5rem; }
+  .steps { list-style: none; padding: 0; margin: 0; display: grid; gap: 1.5rem; }
+  @media (min-width: 48rem) { .steps { grid-template-columns: repeat(4, 1fr); } }
+  .steps li { display: grid; align-content: start; gap: 0.25rem; padding-top: 1rem; border-top: 2px solid var(--ink); }
+  .steps__num { color: var(--brand-ink); font-weight: 600; font-size: 0.875rem; }
+  .steps li > span:last-child { color: var(--ink-2); font-size: 0.9688rem; }
+
+</style>
