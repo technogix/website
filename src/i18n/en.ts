@@ -223,8 +223,8 @@ export const en: Content = {
     title: '25 years across research, industry and teaching',
     education: 'Mathematics preparatory classes (MP*), then an engineering degree from the Institut d’Optique, now part of Université Paris-Saclay. A grounding in applied mathematics and signal processing, then a software culture forged in industries where reliability is not optional: defence, security, critical systems.',
     items: [
-      { period: '2022 – 2026', title: 'Coaching and teaching', place: 'French-American School of New York (FASNY)' },
-      { period: '2019 – 2022', title: 'Set up the digital competence centre', place: 'Thales SIX' },
+      { period: '2022 – 2026', title: 'Coach and teacher', place: 'French-American School of New York (FASNY)' },
+      { period: '2019 – 2022', title: 'Head of the digital competence centre', place: 'Thales SIX' },
       { period: '2015 – 2018', title: 'Product and technical lead, video analytics', place: 'Thales SIX' },
       { period: '2009 – 2014', title: 'Head of the biometric image processing team', place: 'Thales SIX' },
       { period: '2001 – 2009', title: 'Algorithm designer, infrared search and track', place: 'Thales Optronique' },
