@@ -223,8 +223,8 @@ export const fr = {
     title: '25 ans entre recherche, industrie et transmission',
     education: 'Classes préparatoires MP*, puis diplôme d’ingénieure de l’Institut d’Optique, aujourd’hui école de l’Université Paris-Saclay. Un socle de mathématiques appliquées et de traitement du signal, puis une culture logicielle forgée dans des industries où la fiabilité n’est pas une option : défense, sécurité, systèmes critiques.',
     items: <CareerItem[]>[
-      { period: '2022 – 2026', title: 'Coaching et enseignement', place: 'École franco-américaine de New York (FASNY)' },
-      { period: '2019 – 2022', title: 'Création du centre de compétences digitales', place: 'Thales SIX' },
+      { period: '2022 – 2026', title: 'Coach et enseignante', place: 'École franco-américaine de New York (FASNY)' },
+      { period: '2019 – 2022', title: 'Responsable du centre de compétences digitales', place: 'Thales SIX' },
       { period: '2015 – 2018', title: 'Responsable produit et technique, analyse vidéo', place: 'Thales SIX' },
       { period: '2009 – 2014', title: 'Responsable de l’équipe traitement d’image biométrique', place: 'Thales SIX' },
       { period: '2001 – 2009', title: 'Conceptrice d’algorithmes, veille infrarouge', place: 'Thales Optronique' },
