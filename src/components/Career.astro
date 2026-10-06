@@ -1,0 +1,82 @@
+---
+import { Image } from 'astro:assets';
+import { getContent } from '../i18n';
+import pencils from '../assets/pencils.jpg';
+
+const { career } = getContent(Astro.currentLocale);
+---
+<section class="section" id="background" aria-labelledby="background-title">
+  <div class="container career">
+    <div class="section-head career__head">
+      <p class="eyebrow">{career.eyebrow}</p>
+      <h2 id="background-title">{career.title}</h2>
+      <p>{career.education}</p>
+      <div class="career__visual"><Image src={pencils} alt="" widths={[320, 640, 960]} sizes="20rem" /></div>
+    </div>
+    <div>
+      <ol class="timeline">
+        {career.items.map((c) => (
+          <li>
+            <p class="timeline__period">{c.period}</p>
+            <div>
+              <h3>{c.title}</h3>
+              <p class="timeline__place">{c.place}</p>
+              {c.text && <p class="timeline__text">{c.text}</p>}
+              {c.points && (
+                <ul class="timeline__points">{c.points.map((p) => <li>{p}</li>)}</ul>
+              )}
+            </div>
+          </li>
+        ))}
+      </ol>
+      <div class="creds">
+        {career.credentials.map((c) => (
+          <details>
+            <summary>{c.title} <span>{c.items.length}</span></summary>
+            <ul>{c.items.map((x) => (
+              <li>{x.href ? <a href={x.href} rel="noopener">{x.label}</a> : x.label}</li>
+            ))}</ul>
+          </details>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .career { display: grid; gap: 1rem 4rem; }
+  @media (min-width: 60rem) {
+    .career { grid-template-columns: 20rem 1fr; }
+    .career__head { position: sticky; top: 6rem; align-self: start; }
+  }
+  /* The pencils are cut at the bottom of the photo: fade them out. */
+  .career__visual {
+    max-width: 20rem;
+    margin-top: 2.5rem;
+    -webkit-mask-image: linear-gradient(to bottom, #000 55%, transparent);
+    mask-image: linear-gradient(to bottom, #000 55%, transparent);
+  }
+  .career__visual :global(img) { width: 100%; height: auto; }
+  .timeline { list-style: none; padding: 0; margin: 0; }
+  .timeline > li { display: grid; gap: 0.25rem 2rem; padding: 1.5rem 0; border-top: 1px solid var(--line); }
+  .timeline > li:first-child { border-top: 0; padding-top: 0; }
+  @media (min-width: 40rem) { .timeline > li { grid-template-columns: 8rem 1fr; } }
+  .timeline__period { color: var(--brand-ink); font-weight: 600; font-size: 0.9375rem; font-variant-numeric: tabular-nums; }
+  .timeline h3 { font-family: var(--font-body); font-size: 1.0625rem; }
+  .timeline__place { color: var(--muted); font-size: 0.9375rem; }
+  .timeline__text { margin-top: 0.5rem; color: var(--ink-2); font-size: 0.9688rem; }
+  .timeline__points { list-style: none; margin-top: 0.625rem; display: grid; gap: 0.375rem; }
+  .timeline__points li { position: relative; padding-left: 1.25rem; color: var(--ink-2); font-size: 0.9375rem; }
+  .timeline__points li::before { content: ''; position: absolute; left: 0; top: 0.7em; width: 0.5rem; height: 2px; background: var(--brand); }
+
+  .creds { margin-top: 2rem; border-top: 1px solid var(--line); }
+  details { border-bottom: 1px solid var(--line); }
+  summary { display: flex; align-items: center; gap: 0.75rem; padding: 1rem 0; cursor: pointer; font-weight: 500; list-style: none; }
+  summary::-webkit-details-marker { display: none; }
+  summary::after { content: '+'; margin-left: auto; color: var(--brand-ink); font-size: 1.25rem; line-height: 1; }
+  details[open] summary::after { content: '−'; }
+  summary span { color: var(--muted); font-weight: 400; font-size: 0.875rem; }
+  details ul { list-style: none; display: grid; gap: 0.5rem; padding-bottom: 1.25rem; color: var(--ink-2); font-size: 0.9375rem; }
+  details a { color: var(--ink-2); text-decoration-color: var(--line); }
+  details a:hover { color: var(--brand-ink); text-decoration-color: currentColor; }
+</style>

@@ -1,0 +1,49 @@
+---
+import { getImage } from 'astro:assets';
+import { getContent } from '../i18n';
+import gears from '../assets/gears.jpg';
+
+const { services } = getContent(Astro.currentLocale);
+// Decorative background: gears in two corners, hidden in the middle by the cards.
+const bg = await getImage({ src: gears, format: 'webp', width: 1920 });
+---
+<section class="section section--alt services-section" id="services" aria-labelledby="services-title" style={`--gears: url("${bg.src}")`}>
+  <div class="container">
+    <div class="section-head">
+      <p class="eyebrow">{services.eyebrow}</p>
+      <h2 id="services-title">{services.title}</h2>
+      <p>{services.lead}</p>
+    </div>
+    <div class="services">
+      {services.items.map((s, i) => (
+        <article class="service">
+          <p class="service__num">0{i + 1}</p>
+          <h3>{s.title}</h3>
+          <p class="service__pitch">{s.pitch}</p>
+          <ul>{s.points.map((it) => <li>{it}</li>)}</ul>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .services-section { position: relative; isolation: isolate; }
+  .services-section::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background: var(--gears) center / cover no-repeat;
+    mix-blend-mode: multiply;
+    opacity: 0.2;
+  }
+  .services { display: grid; gap: 1.25rem; }
+  @media (min-width: 60rem) { .services { grid-template-columns: repeat(3, 1fr); } }
+  .service { background: var(--bg); border: 1px solid var(--line); border-radius: var(--radius); padding: 2rem 1.75rem; display: flex; flex-direction: column; }
+  .service__num { color: var(--brand-ink); font-weight: 600; font-size: 0.875rem; letter-spacing: 0.08em; margin-bottom: 1.25rem; }
+  .service__pitch { margin-top: 0.75rem; color: var(--ink-2); }
+  .service ul { list-style: none; margin-top: 1.5rem; padding-top: 1.25rem; border-top: 1px solid var(--line); display: grid; gap: 0.625rem; }
+  .service li { position: relative; padding-left: 1.25rem; font-size: 0.9688rem; }
+  .service li::before { content: ''; position: absolute; left: 0; top: 0.7em; width: 0.5rem; height: 2px; background: var(--brand); }
+</style>

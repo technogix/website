@@ -1,0 +1,57 @@
+---
+import { getContent } from '../i18n';
+
+const { projects } = getContent(Astro.currentLocale);
+---
+<section class="section section--alt" id="work" aria-labelledby="work-title">
+  <div class="container">
+    <div class="section-head">
+      <p class="eyebrow">{projects.eyebrow}</p>
+      <h2 id="work-title">{projects.title}</h2>
+      <p>{projects.lead}</p>
+    </div>
+    {projects.groups.map((g) => (
+    <div class="group">
+    <h3 class="group__title">{g.title}</h3>
+    <div class="projects">
+      {g.items.map((p) => (
+        <article class="project">
+          <p class="project__meta">
+            <span>{p.period}</span><span aria-hidden="true">·</span><span>{p.context}</span>
+            {p.status && <span class="project__status">{p.status}</span>}
+          </p>
+          <h4>{p.title}</h4>
+          <p class="project__text">{p.text}</p>
+          {p.points && <ul class="project__points">{p.points.map((x) => <li>{x}</li>)}</ul>}
+          <div class="project__foot">
+            <ul class="tags">{p.tags.map((t) => <li>{t}</li>)}</ul>
+            {p.link && <a href={p.link.href} rel="noopener">{p.link.label} <span aria-hidden="true">→</span></a>}
+          </div>
+        </article>
+      ))}
+    </div>
+    </div>
+    ))}
+  </div>
+</section>
+
+<style>
+  .group + .group { margin-top: 3.5rem; }
+  .group__title { font-family: var(--font-body); font-size: 0.8125rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); margin-bottom: 1.25rem; }
+  .projects { display: grid; gap: 1.25rem; }
+  .project h4 { margin: 0; font-family: var(--font-head); font-size: 1.25rem; font-weight: 600; line-height: 1.25; }
+  @media (min-width: 48rem) {
+    .projects { grid-template-columns: repeat(2, 1fr); }
+    /* An odd last card takes the full row instead of leaving a hole. */
+    .project:last-child:nth-child(odd) { grid-column: 1 / -1; }
+  }
+  .project { display: flex; flex-direction: column; gap: 0.75rem; padding: 1.75rem; background: var(--bg); border: 1px solid var(--line); border-radius: var(--radius); }
+  .project__meta { display: flex; flex-wrap: wrap; align-items: center; gap: 0.5rem; color: var(--muted); font-size: 0.875rem; }
+  .project__status { margin-left: auto; padding: 0.0625rem 0.5rem; border-radius: 999px; background: var(--brand-soft); color: var(--brand-ink); font-size: 0.75rem; font-weight: 600; }
+  .project__text { color: var(--ink); font-size: 0.9688rem; }
+  .project__points { list-style: none; display: grid; gap: 0.375rem; }
+  .project__points li { position: relative; padding-left: 1.25rem; color: var(--ink-2); font-size: 0.9375rem; }
+  .project__points li::before { content: ''; position: absolute; left: 0; top: 0.7em; width: 0.5rem; height: 2px; background: var(--brand); }
+  .project__foot { margin-top: auto; padding-top: 0.75rem; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 0.75rem; }
+  .project__foot a { font-size: 0.9375rem; font-weight: 500; text-decoration: none; }
+</style>

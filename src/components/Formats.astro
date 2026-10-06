@@ -1,0 +1,30 @@
+---
+import { getContent } from '../i18n';
+
+const { formats } = getContent(Astro.currentLocale);
+---
+<section class="section section--alt" id="formats" aria-labelledby="formats-title">
+  <div class="container">
+    <div class="section-head">
+      <p class="eyebrow">{formats.eyebrow}</p>
+      <h2 id="formats-title">{formats.title}</h2>
+      <p>{formats.lead}</p>
+    </div>
+    <ul class="formats">
+      {formats.items.map((f) => (
+        <li>
+          <h3>{f.title}</h3>
+          <p>{f.text}</p>
+        </li>
+      ))}
+    </ul>
+  </div>
+</section>
+
+<style>
+  .formats { list-style: none; display: grid; gap: 1.25rem; }
+  @media (min-width: 48rem) { .formats { grid-template-columns: repeat(3, 1fr); } }
+  .formats li { padding: 1.75rem; background: var(--bg); border: 1px solid var(--line); border-top: 3px solid var(--brand); border-radius: var(--radius); }
+  .formats h3 { font-size: 1.25rem; }
+  .formats p { margin-top: 0.625rem; color: var(--ink-2); font-size: 0.9688rem; }
+</style>

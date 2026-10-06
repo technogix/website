@@ -1,0 +1,27 @@
+---
+import { site } from '../data/site';
+import { getContent } from '../i18n';
+import { routes, toLocale } from '../i18n/config';
+
+const locale = toLocale(Astro.currentLocale);
+const t = getContent(locale);
+const year = new Date().getFullYear();
+---
+<footer class="footer">
+  <div class="container footer__inner">
+    <p>© {year} {site.legalName}</p>
+    <ul>
+      <li><a href={routes.legal[locale]}>{t.ui.legal}</a></li>
+      <li><a href={site.github} rel="noopener">GitHub</a></li>
+      <li><a href={site.linkedin} rel="noopener">LinkedIn</a></li>
+    </ul>
+  </div>
+</footer>
+
+<style>
+  .footer { padding-block: 1.75rem; background: #0a1922; color: rgb(255 255 255 / 0.6); font-size: 0.875rem; }
+  .footer__inner { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 1rem; }
+  .footer ul { display: flex; flex-wrap: wrap; gap: 1.5rem; list-style: none; }
+  .footer a { color: rgb(255 255 255 / 0.8); text-decoration: none; }
+  .footer a:hover { color: #fff; text-decoration: underline; }
+</style>

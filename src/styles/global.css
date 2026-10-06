@@ -1,0 +1,165 @@
+/* Fonts are self-hosted (no request to a third party, no cookie banner needed). */
+@import '@fontsource/ibm-plex-sans/latin-400.css';
+@import '@fontsource/ibm-plex-sans/latin-500.css';
+@import '@fontsource/ibm-plex-sans/latin-600.css';
+@import '@fontsource-variable/source-serif-4/index.css';
+
+:root {
+  /* Brand: #23a8d4 is the logo colour. Too light for text on white (2.6:1),
+     so text and buttons use --brand-ink (5.8:1). */
+  --brand: #23a8d4;
+  --brand-ink: #0a6d8e;
+  --brand-soft: #eaf6fb;
+
+  --ink: #0e2230;
+  --ink-2: #3b4f5c;
+  --muted: #5f7280;
+  --line: #dce4e9;
+  --bg: #ffffff;
+  --bg-alt: #f5f8fa;
+
+  --font-body: 'IBM Plex Sans', system-ui, sans-serif;
+  --font-head: 'Source Serif 4 Variable', Georgia, serif;
+
+  --container: 72rem;
+  --gutter: 1rem;
+  --radius: 6px;
+
+  color-scheme: light;
+}
+
+@media (min-width: 48rem) {
+  :root { --gutter: 2rem; }
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 5rem;
+  -webkit-text-size-adjust: 100%;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: 1.0625rem;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3 {
+  font-family: var(--font-head);
+  font-weight: 600;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  margin: 0;
+  text-wrap: balance;
+}
+
+h1 { font-size: clamp(2.1rem, 5vw, 3.4rem); }
+h2 { font-size: clamp(1.7rem, 3.4vw, 2.4rem); }
+h3 { font-size: 1.25rem; }
+
+p { margin: 0; text-wrap: pretty; }
+
+a { color: var(--brand-ink); text-underline-offset: 0.2em; }
+a:hover { color: var(--ink); }
+
+:focus-visible {
+  outline: 2px solid var(--brand-ink);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+img { max-width: 100%; height: auto; display: block; }
+
+ul { margin: 0; padding: 0; }
+
+.container {
+  width: 100%;
+  max-width: var(--container);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+.section { padding-block: clamp(4rem, 9vw, 7rem); }
+.section--alt { background: var(--bg-alt); }
+
+.section-head { max-width: 46rem; margin-bottom: clamp(2.5rem, 5vw, 3.5rem); }
+.section-head p:not(.eyebrow) { margin-top: 1rem; color: var(--ink-2); font-size: 1.125rem; }
+
+/* Small uppercase label above section titles, with the brand rule. */
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+  color: var(--brand-ink);
+  font-size: 0.8125rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.eyebrow::before {
+  content: '';
+  width: 1.75rem;
+  height: 2px;
+  background: var(--brand);
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  min-height: 2.875rem;
+  padding: 0.625rem 1.25rem;
+  border: 1px solid var(--brand-ink);
+  border-radius: var(--radius);
+  background: var(--brand-ink);
+  color: #fff;
+  font-weight: 500;
+  font-size: 1rem;
+  text-decoration: none;
+  transition: background-color 0.15s, color 0.15s, border-color 0.15s;
+}
+.btn:hover { background: var(--ink); border-color: var(--ink); color: #fff; }
+
+.btn--ghost { background: transparent; color: var(--ink); border-color: var(--line); }
+.btn--ghost:hover { background: transparent; border-color: var(--ink); color: var(--ink); }
+
+.tags { display: flex; flex-wrap: wrap; gap: 0.5rem; list-style: none; }
+.tags li {
+  padding: 0.125rem 0.625rem;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  color: var(--ink-2);
+  font-size: 0.8125rem;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px; height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+.skip-link {
+  position: absolute;
+  left: var(--gutter);
+  top: -3rem;
+  z-index: 100;
+  padding: 0.5rem 1rem;
+  background: var(--ink);
+  color: #fff;
+  border-radius: var(--radius);
+}
+.skip-link:focus { top: 0.75rem; color: #fff; }

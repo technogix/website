@@ -1,0 +1,46 @@
+---
+import { getImage } from 'astro:assets';
+import { site } from '../data/site';
+import { getContent } from '../i18n';
+import desk from '../assets/desk.jpg';
+
+const { contact } = getContent(Astro.currentLocale);
+// Decorative background, under a navy veil that keeps the text readable.
+const bg = await getImage({ src: desk, format: 'webp', width: 1920 });
+---
+<section class="contact" id="contact" aria-labelledby="contact-title" style={`--desk: url("${bg.src}")`}>
+  <div class="container contact__grid">
+    <div>
+      <p class="eyebrow">{contact.eyebrow}</p>
+      <h2 id="contact-title">{contact.title}</h2>
+      <p class="contact__text">{contact.text}</p>
+    </div>
+    <div class="contact__actions">
+      {site.booking && <a class="btn" href={site.booking} rel="noopener">{contact.book}</a>}
+      <a class={site.booking ? 'btn btn--ghost' : 'btn'} href={`mailto:${site.email}`}>{site.email}</a>
+      <a class="btn btn--ghost" href={site.linkedin} rel="noopener">LinkedIn</a>
+      <p class="contact__where">{site.legalName} · {site.location}</p>
+    </div>
+  </div>
+</section>
+
+<style>
+  .contact {
+    padding-block: clamp(4rem, 9vw, 6.5rem);
+    background:
+      linear-gradient(rgb(14 34 48 / 0.9), rgb(14 34 48 / 0.9)),
+      var(--desk) center / cover no-repeat,
+      var(--ink);
+    color: #fff;
+  }
+  .contact .eyebrow { color: var(--brand); }
+  .contact__grid { display: grid; gap: 2.5rem 4rem; align-items: end; }
+  @media (min-width: 60rem) { .contact__grid { grid-template-columns: 1.4fr 1fr; } }
+  .contact__text { margin-top: 1rem; max-width: 36rem; color: rgb(255 255 255 / 0.78); font-size: 1.125rem; }
+  .contact__actions { display: flex; flex-wrap: wrap; gap: 0.75rem; }
+  .contact .btn { background: var(--brand); border-color: var(--brand); color: var(--ink); font-weight: 600; }
+  .contact .btn:hover { background: #fff; border-color: #fff; }
+  .contact .btn--ghost { background: transparent; border-color: rgb(255 255 255 / 0.35); color: #fff; font-weight: 500; }
+  .contact .btn--ghost:hover { border-color: #fff; background: transparent; color: #fff; }
+  .contact__where { width: 100%; margin-top: 0.5rem; color: rgb(255 255 255 / 0.6); font-size: 0.875rem; }
+</style>

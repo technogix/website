@@ -1,0 +1,51 @@
+---
+import Base from '../layouts/Base.astro';
+import Header from './Header.astro';
+import Footer from './Footer.astro';
+import { company, site } from '../data/site';
+import { getContent } from '../i18n';
+
+const { legal } = getContent(Astro.currentLocale);
+const mail = `mailto:${site.email}`;
+// French puts a non-breaking space before a colon, English does not.
+const colon = Astro.currentLocale === 'fr' ? ' :' : ':';
+---
+<Base page="legal" title={`${legal.title} — ${site.name}`} description={legal.description}>
+  <Header page="legal" />
+  <main id="main" class="section">
+    <div class="container legal">
+      <p class="eyebrow">{legal.eyebrow}</p>
+      <h1>{legal.title}</h1>
+
+      <h2>{legal.publisherTitle}</h2>
+      <p>
+        {site.legalName}, {legal.company} {company.capital}<br />
+        {legal.address}{colon} {company.address}<br />
+        RCS {company.rcs} · SIREN {company.siren}<br />
+        {legal.vat}{colon} {company.vat}<br />
+        {legal.contact}{colon} <a href={mail}>{site.email}</a>
+      </p>
+      <p>{legal.director}{colon} {site.person}.</p>
+
+      <h2>{legal.hostTitle}</h2>
+      <p>{company.host}.</p>
+
+      <h2>{legal.privacyTitle}</h2>
+      <p>{legal.privacy[0]}</p>
+      <p>{legal.privacy[1]} <a href={mail}>{site.email}</a>.</p>
+      {site.booking && <p>{legal.booking}</p>}
+
+      <h2>{legal.ipTitle}</h2>
+      <p>{legal.ip} {site.legalName}.</p>
+    </div>
+  </main>
+  <Footer />
+</Base>
+
+<style>
+  .legal { max-width: 46rem; }
+  .legal h1 { margin-bottom: 2.5rem; }
+  .legal h2 { font-size: 1.375rem; margin: 2.5rem 0 0.75rem; }
+  .legal p + p { margin-top: 0.75rem; }
+  .legal p { color: var(--ink-2); }
+</style>
